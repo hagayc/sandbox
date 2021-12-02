@@ -1,14 +1,14 @@
-#!/bin/bash
-set -e
-
+#!/bin/bash -x
+  
 Main()
 {
-for (( c=1; c<=$COUNTER; c++ ))
+for ((c=0; c<${COUNTER}; c++))
 do
 ps aux | grep "${search}" | grep "${user}"
 done
 }
 
+export -f Main
 
 while getopts :c:t:p:u: opt
 do
@@ -28,4 +28,5 @@ do
   esac
 done
 
-Main
+timeout ${mytimeout} bash -c Main
+
